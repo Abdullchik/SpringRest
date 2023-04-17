@@ -14,14 +14,10 @@ public class RoleDaoImp implements RoleDao{
     public RoleDaoImp(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
-
-    @Transactional
     @Override
     public void add(Role role) {
         entityManager.persist(role);
     }
-
-    @Transactional(readOnly = true)
     @Override
     public Role findByName(String roleName) {
         try {

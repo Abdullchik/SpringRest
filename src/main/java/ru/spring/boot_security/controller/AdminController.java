@@ -2,16 +2,19 @@ package ru.spring.boot_security.controller;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ru.spring.boot_security.model.Role;
 import ru.spring.boot_security.model.User;
 import ru.spring.boot_security.service.UserService;
 import ru.spring.boot_security.util.RolesValidator;
 import ru.spring.boot_security.util.UserNameValidator;
 
 import javax.validation.Valid;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -22,11 +25,13 @@ public class AdminController {
     private final UserNameValidator userNameValidator;
     private final RolesValidator rolesValidator;
     private final UserService userService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public AdminController(UserNameValidator userNameValidator, RolesValidator rolesValidator, UserService userService) {
+    public AdminController(UserNameValidator userNameValidator, RolesValidator rolesValidator, UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userNameValidator = userNameValidator;
         this.rolesValidator = rolesValidator;
         this.userService = userService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @GetMapping()
@@ -53,7 +58,13 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             return "main";
         }
-        userService.add(addUser, Set.of(roleNameSet));
+        addUser.setPass(bCryptPasswordEncoder.encode(addUser.getPass()));
+        Set<Role> roleSet = new HashSet<>();
+        for(String s: roleNameSet) {
+            roleSet.add(Role.getRole(s));
+        }
+        addUser.setRoleSet(roleSet);
+        userService.add(addUser);
         return "redirect:/admin";
     }
 
@@ -67,9 +78,15 @@ public class AdminController {
                              @RequestParam(value = "role[]", required = false) String[] roleNameSet) {
         rolesValidator.validate(roleNameSet, bindingResult);
         if (bindingResult.hasErrors()) {
-            return "updateUserPage";
+            return "main";
         }
-        userService.update(user, Set.of(roleNameSet));
+        user.setPass(bCryptPasswordEncoder.encode(user.getPass()));
+        Set<Role> roleSet = new HashSet<>();
+        for(String s: roleNameSet) {
+            roleSet.add(Role.getRole(s));
+        }
+        user.setRoleSet(roleSet);
+        userService.update(user);
         return "redirect:/admin";
     }
 

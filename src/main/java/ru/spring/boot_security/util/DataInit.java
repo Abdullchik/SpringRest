@@ -1,7 +1,7 @@
 package ru.spring.boot_security.util;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 import ru.spring.boot_security.model.Role;
 import ru.spring.boot_security.model.User;
 import ru.spring.boot_security.service.RoleService;
@@ -15,19 +15,19 @@ public class DataInit {
 
     private final UserService userService;
     private final RoleService roleService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public DataInit(UserService userService, RoleService roleService) {
+    public DataInit(UserService userService, RoleService roleService, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userService = userService;
         this.roleService = roleService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
-    @Transactional
     @PostConstruct
     protected void CreateAdmin() {
-        Set<Role> roleSet = Set.of(new Role("ROLE_ADMIN", "ADMIN"), new Role("ROLE_USER", "USER"));
-        for(Role r: roleSet){
-            roleService.add(r);
-        }
-        Set<String> roleNameSet = Set.of("ROLE_ADMIN", "ROLE_USER");
-        userService.add(new User("Admin", "12345"), roleNameSet);
+        Role.setRole("ROLE_ADMIN", "ADMIN");
+        Role.setRole("ROLE_USER", "USER");
+        roleService.add(Role.getRole("ROLE_ADMIN"));
+        roleService.add(Role.getRole("ROLE_USER"));
+        userService.add(new User("Admin", bCryptPasswordEncoder.encode("12345"), Set.of(Role.getRole("ROLE_ADMIN"), Role.getRole("ROLE_USER"))));
     }
 }

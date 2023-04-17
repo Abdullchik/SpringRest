@@ -19,18 +19,16 @@ import java.util.Set;
 public class UserServiceImp implements UserService, UserDetailsService {
     private final UserDao userDao;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final RoleService roleService;
 
-    public UserServiceImp(UserDao userDao, BCryptPasswordEncoder bCryptPasswordEncoder, RoleService roleService) {
+    public UserServiceImp(UserDao userDao, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userDao = userDao;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.roleService = roleService;
     }
 
     @Transactional
     @Override
-    public void add(User user, Set<String> roleNameSet) {
-        userDao.add(UserNameCheck(user, roleNameSet));
+    public void add(User user) {
+        userDao.add(user);
     }
 
 
@@ -39,12 +37,14 @@ public class UserServiceImp implements UserService, UserDetailsService {
     public void update(User user, Set<String> roleNameSet) {
         Set<Role> roleSet = new HashSet<>();
         System.out.println(roleNameSet);
-        for (String s : roleNameSet) {
-            Role role = roleService.findByName(s);
-            roleSet.add(role);
-        }
         user.setPass(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRoleSet(roleSet);
+        userDao.update(user);
+    }
+
+    @Transactional
+    @Override
+    public void update(User user) {
         userDao.update(user);
     }
 
@@ -83,10 +83,6 @@ public class UserServiceImp implements UserService, UserDetailsService {
         }
         Set<Role> roleSet = new HashSet<>();
         System.out.println(roleNameSet);
-        for (String s : roleNameSet) {
-            Role role = roleService.findByName(s);
-            roleSet.add(role);
-        }
         user.setPass(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRoleSet(roleSet);
         return user;
