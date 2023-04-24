@@ -89,7 +89,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
     @Transactional
     @Override
     public User UserNameCheck(User user, Set<String> roleNameSet) {
-        if (userDao.getByName(user.getName()) != null) {
+        if (userDao.getByName(user.getUsername()) != null) {
             throw new IllegalArgumentException("Пользователь с таким именем существует");
         }
         Set<Role> roleSet = new HashSet<>();
@@ -102,7 +102,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
     @Transactional
     @Override
     public User UserNameCheck(User user) {
-        if (userDao.getByName(user.getName()) != null) {
+        if (userDao.getByName(user.getUsername()) != null) {
             throw new IllegalArgumentException("Пользователь с таким именем существует");
         }
         return user;

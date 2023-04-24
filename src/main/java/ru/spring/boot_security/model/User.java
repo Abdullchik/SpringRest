@@ -23,12 +23,10 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty(message = "Имя не может быть пустым")
     @Size(min = 2, max = 27, message = "Имя не может быть короче 2 и больше 27 символов")
     @Column(name = "name")
-    private String name;
+    private String username;
 
-    @NotEmpty(message = "Пароль не может быть пустым")
     @Column(name = "password")
     private String pass;
 
@@ -41,17 +39,20 @@ public class User implements UserDetails {
     @Column(name = "createdWho")
     private String createdWho;
 
-    public User(String name, String pass, Set<Role> roleSet) {
-        this.name = name;
+    public User(String username, String pass, Set<Role> roleSet) {
+        this.username = username;
         this.pass = pass;
         this.roleSet = roleSet;
     }
 
     public User(String name, String pass) {
-        this.name = name;
+        this.username = name;
         this.pass = pass;
     }
 
+    public String getName() {
+        return username;
+    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roleSet;
@@ -64,7 +65,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return getName();
+        return username;
     }
 
     @Override
@@ -89,7 +90,7 @@ public class User implements UserDetails {
 
     @Override
     public String toString() {
-        return "id " + id + " " + name;
+        return "id " + id + " " + username;
     }
 
     @Override
@@ -97,11 +98,11 @@ public class User implements UserDetails {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && Objects.equals(name, user.name) && Objects.equals(pass, user.pass);
+        return id == user.id && Objects.equals(username, user.username) && Objects.equals(pass, user.pass);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, pass);
+        return Objects.hash(id, username, pass);
     }
 }

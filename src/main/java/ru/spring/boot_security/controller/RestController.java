@@ -31,17 +31,17 @@ public class RestController {
 
     @GetMapping("/people")
     public List<UserDTO> getUsers() {
-        List<User> usersList = userService.getUsersList();
-        List<UserDTO> UserDTOList = new ArrayList<>();
-        for(User u : usersList) {
-            UserDTOList.add(convertToUserDTO(u));
-        }
-        return UserDTOList;
+        return userService.getUsersList().stream().map(this::convertToUserDTO).toList();
     }
 
     @GetMapping("/people/{id}")
     public UserDTO getUser(@PathVariable("id") Long id) {
         return convertToUserDTO(userService.getUser(id));
+    }
+
+    @DeleteMapping("/people/{id}")
+    public void deleteUser(@PathVariable("id") Long id) {
+        userService.delete(id);
     }
 
     @PostMapping("/people")
