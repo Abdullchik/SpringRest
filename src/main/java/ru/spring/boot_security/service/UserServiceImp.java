@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.spring.boot_security.dao.UserDao;
 import ru.spring.boot_security.model.Role;
 import ru.spring.boot_security.model.User;
+import ru.spring.boot_security.util.UserNotFoundException;
 
 import java.util.HashSet;
 import java.util.List;
@@ -56,6 +57,16 @@ public class UserServiceImp implements UserService, UserDetailsService {
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Введены неверные данные", e);
         }
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public User getUser(long id) {
+        User user = userDao.getById(id);
+        if (user == null) {
+            throw new UserNotFoundException();
+        }
+        return user;
     }
 
     @Transactional(readOnly = true)

@@ -1,7 +1,6 @@
 package ru.spring.boot_security.model;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -9,7 +8,6 @@ import javax.persistence.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "roles")
@@ -25,10 +23,6 @@ public class Role implements GrantedAuthority {
     private String name;
     @Column(name = "value")
     private String value;
-
-    @Transient
-    @ManyToMany
-    private Set<User> users;
 
     @Transient
     private final static Map<String, Role> roleMap= new HashMap<>();

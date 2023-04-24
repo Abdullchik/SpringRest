@@ -19,6 +19,8 @@ public interface UserService {
 
     void delete(long id);
 
+    User getUser(long id);
+
     List<User> getUsersList();
 
     User UserNameCheck(User user, Set<String> roleNameSet);

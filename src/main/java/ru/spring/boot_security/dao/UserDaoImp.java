@@ -31,7 +31,6 @@ public class UserDaoImp implements UserDao {
 
     @Override
     public User getById(Long id){
-        System.out.println(entityManager.find(User.class, id));
         return entityManager.find(User.class, id);
     }
 
