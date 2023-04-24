@@ -83,84 +83,84 @@
                                                 <span th:text="${role.getValue()}"></span>
                                             </span>
                                     </td>
-                                    <td>
-                                        <!-- Button edit -->
-                                        <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                id="buttonEdit" th:data-target="${'#Modal_Edit_' + userr.id}">
-                                            Edit
-                                        </button>
-                                        <!-- Modal edit -->
-                                        <div class="modal fade" th:id="${'Modal_Edit_' + userr.id}" tabindex="-1"
-                                             role="dialog"
-                                             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLongTitle">Edit
-                                                            user</h5>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                          </button>
-                                                    </div>
-                                                    <div class="modal-body tab-pane fade show active card">
-                                                        <form th:method="PATCH" th:action="@{/admin/updateUser}"
-                                                              th:object="${updateUser}">
-                                                            <br>
-                                                            <div class="form-group">
-                                                                <label class="form-label"
-                                                                       for="edit-id"><strong>Id</strong></label>
-                                                                <input class="form-control" type="text" name="id"
-                                                                       th:value="${userr.id}" id="edit-id" readonly/>
-                                                                <div th:if="${#fields.hasErrors('id')}"
-                                                                     th:errors="*{id}"></div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label class="form-label"
-                                                                       for="edit-name"><strong>Name</strong></label>
-                                                                <input class="form-inline" type="text" name="name"
-                                                                       th:value="${userr.name}" id="edit-name"/>
-                                                                <div class="valid-feedback"
-                                                                     th:if="${#fields.hasErrors('name')}"
-                                                                     th:errors="*{name}"></div>
-                                                            </div>
-                                                            <br>
-                                                            <div class="form-group">
-                                                                <label class="form-label" for="edit-password"><strong>Password</strong></label>
-                                                                <input class="form-inline" type="text" name="pass"
-                                                                       value="12345" id="edit-password"/>
-                                                                <div class="valid-feedback"
-                                                                     th:if="${#fields.hasErrors('pass')}"
-                                                                     th:errors="*{pass}"></div>
+                                        <td>
+                                            <!-- Button edit -->
+                                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                    id="buttonEdit" th:data-target="${'#Modal_Edit_' + userr.id}">
+                                                Edit
+                                            </button>
+                                            <!-- Modal edit -->
+                                            <div class="modal fade" th:id="${'Modal_Edit_' + userr.id}" tabindex="-1"
+                                                 role="dialog"
+                                                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLongTitle">Edit
+                                                                user</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                              </button>
+                                                        </div>
+                                                        <div class="modal-body tab-pane fade show active card">
+                                                            <form th:method="PATCH" th:action="@{/admin/updateUser}"
+                                                                  th:object="${updateUser}">
                                                                 <br>
-                                                            </div>
-                                                            <div class="form-label  form-group">
-                                                                <label class="form-label"
-                                                                       for="edit-role"><strong>Role</strong></label>
-                                                                <select class="custom-select" id="edit-role"
-                                                                        name="role[]" multiple size="2">
-                                                                    <option value="ROLE_ADMIN">ADMIN</option>
-                                                                    <option value="ROLE_USER">USER</option>
-                                                                </select>
-                                                            </div>
-                                                            <div th:if="${#fields.hasErrors('roleSet')}"
-                                                                 th:errors="*{roleSet}"></div>
-                                                            <br>
-                                                            <br>
-                                                            <br>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary"
-                                                                        data-dismiss="modal">Close
-                                                                </button>
-                                                                <input type="submit" class="btn btn-primary"
-                                                                       value="Edit">
-                                                            </div>
-                                                        </form>
+                                                                <div class="form-group">
+                                                                    <label class="form-label"
+                                                                           for="edit-id"><strong>Id</strong></label>
+                                                                    <input class="form-control" type="text" name="id"
+                                                                           th:value="${userr.id}" id="edit-id" readonly/>
+                                                                    <div th:if="${#fields.hasErrors('id')}"
+                                                                         th:errors="*{id}"></div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="form-label"
+                                                                           for="edit-name"><strong>Name</strong></label>
+                                                                    <input class="form-inline" type="text" name="name"
+                                                                           th:value="${userr.name}" id="edit-name"/>
+                                                                    <div class="valid-feedback"
+                                                                         th:if="${#fields.hasErrors('name')}"
+                                                                         th:errors="*{name}"></div>
+                                                                </div>
+                                                                <br>
+                                                                <div class="form-group">
+                                                                    <label class="form-label" for="edit-password"><strong>Password</strong></label>
+                                                                    <input class="form-inline" type="text" name="pass"
+                                                                           value="12345" id="edit-password"/>
+                                                                    <div class="valid-feedback"
+                                                                         th:if="${#fields.hasErrors('pass')}"
+                                                                         th:errors="*{pass}"></div>
+                                                                    <br>
+                                                                </div>
+                                                                <div class="form-label  form-group">
+                                                                    <label class="form-label"
+                                                                           for="edit-role"><strong>Role</strong></label>
+                                                                    <select class="custom-select" id="edit-role"
+                                                                            name="role[]" multiple size="2">
+                                                                        <option value="ROLE_ADMIN">ADMIN</option>
+                                                                        <option value="ROLE_USER">USER</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div th:if="${#fields.hasErrors('roleSet')}"
+                                                                     th:errors="*{roleSet}"></div>
+                                                                <br>
+                                                                <br>
+                                                                <br>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                            data-dismiss="modal">Close
+                                                                    </button>
+                                                                    <input type="submit" class="btn btn-primary"
+                                                                           value="Edit">
+                                                                </div>
+                                                            </form>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </td>
+                                        </td>
                                     <td>
                                         <!-- Button delete -->
                                         <button type="button" class="btn btn-danger" data-toggle="modal"
