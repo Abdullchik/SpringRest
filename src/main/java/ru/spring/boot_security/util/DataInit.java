@@ -26,8 +26,8 @@ public class DataInit {
     protected void CreateAdmin() {
         Role.setRole("ROLE_ADMIN", "ADMIN");
         Role.setRole("ROLE_USER", "USER");
-        roleService.add(Role.getRole("ROLE_ADMIN"));
-        roleService.add(Role.getRole("ROLE_USER"));
-        userService.add(new User("Admin", bCryptPasswordEncoder.encode("12345"), Set.of(Role.getRole("ROLE_ADMIN"), Role.getRole("ROLE_USER"))));
+        roleService.add(Role.getRole("ADMIN"));
+        roleService.add(Role.getRole("USER"));
+        userService.add(new User("Admin", bCryptPasswordEncoder.encode("12345"), Set.of(Role.getRole("ADMIN"), Role.getRole("USER"))));
     }
 }

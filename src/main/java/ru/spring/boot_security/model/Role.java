@@ -37,11 +37,11 @@ public class Role implements GrantedAuthority {
     }
 
     public static void setRole(String name, String value) {
-        roleMap.put(name, new Role(name, value));
+        roleMap.put(value, new Role(name, value));
     }
 
-    public static Role getRole(String name) {
-        return roleMap.get(name);
+    public static Role getRole(String value) {
+        return roleMap.get(value);
     }
 
 

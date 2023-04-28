@@ -20,10 +20,4 @@ public class RoleServiceImp implements RoleService{
     public void add(Role role) {
         roleDao.add(role);
     }
-    @Transactional(readOnly = true)
-    @Override
-    public Role findByName(String roleName) {
-        return roleDao.findByName(roleName);
-    }
-
 }

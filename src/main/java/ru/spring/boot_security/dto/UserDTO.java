@@ -1,10 +1,6 @@
 package ru.spring.boot_security.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import ru.spring.boot_security.model.Role;
+import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -14,6 +10,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class UserDTO {
 
     private Long id;
@@ -23,5 +20,5 @@ public class UserDTO {
     @NotEmpty(message = "Пароль не может быть пустым")
     private String pass;
 
-    private Set<Role> roleSet;
+    private Set<String> roleSet;
 }

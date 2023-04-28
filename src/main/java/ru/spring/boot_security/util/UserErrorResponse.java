@@ -10,6 +10,5 @@ import lombok.Setter;
 public class UserErrorResponse {
 
     private String message;
-    private long timestap;
 
 }

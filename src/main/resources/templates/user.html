@@ -34,7 +34,8 @@
     <div class="col-md-9">
         <div style="background-color: snow" class="tab-content" tabindex="0">
             <!--ПАНЕЛЬ ЮЗЕРА-->
-            <div class="tab-pane fade show active   " id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-home-tab"
+            <div class="tab-pane fade show active   " id="v-pills-profile" role="tabpanel"
+                 aria-labelledby="v-pills-home-tab"
                  tabindex="0">
                 <h1>User panel</h1>
                 <div class="tab-content">
@@ -50,15 +51,8 @@
                                     <th scope="col">Roles</th>
                                 </tr>
                                 </thead>
-                                <tr>
-                                    <td th:text="${user.id}"></td>
-                                    <td th:text="${user.name}"></td>
-                                    <td>
-                                <span th:each="role :${user.roleSet}">
-                                  <span th:text="${role.getValue()}"></span>
-                                </span>
-                                    </td>
-                                </tr>
+                                <tbody id="user-panel">
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -67,6 +61,7 @@
         </div>
     </div>
 </div>
+<script src="../static/scriptForUser.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>

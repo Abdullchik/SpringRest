@@ -1,5 +1,6 @@
 package ru.spring.boot_security.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,7 +8,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Objects;
@@ -17,6 +17,7 @@ import java.util.Set;
 @Table(name = "users")
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
 public class User implements UserDetails {
     @Id
@@ -36,9 +37,6 @@ public class User implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roleSet;
-    @Column(name = "createdWho")
-    private String createdWho;
-
     public User(String username, String pass, Set<Role> roleSet) {
         this.username = username;
         this.pass = pass;
@@ -98,7 +96,7 @@ public class User implements UserDetails {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && Objects.equals(username, user.username) && Objects.equals(pass, user.pass);
+        return id.equals(user.id) && Objects.equals(username, user.username) && Objects.equals(pass, user.pass);
     }
 
     @Override

@@ -9,18 +9,8 @@
         form {
             margin: auto;
         }
-
-        .form-label {
-            display: block;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        .center {
-            display: block;
-            margin: 0 auto;
-        }
     </style>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 </head>
 <body>
 <nav id="navbar-toggle-button" class="navbar navbar-dark bg-dark">
@@ -74,7 +64,7 @@
                                 </tr>
                                 </thead>
                                 <tbody id="user-table">
-
+                                <!-- js заполняет -->
                                 </tbody>
                             </table>
                         </div>
@@ -82,39 +72,7 @@
                     <!--СТРАНИЦА СОЗДАНИЯ ЮЗЕРА-->
                     <div style="background-color: gainsboro" class="tab-pane fade card" id="profile"
                          role="tabpanel" aria-labelledby="home-tab">
-                        <h5 class="card-body" style="font-size: x-large">Add new user</h5>
-                        <div class="tab-pane fade show active card" role="tabpanel">
-                            <form th:method="POST" th:action="@{/admin/createUser}" th:object="${addUser}">
-                                <br>
-                                <div class="form-group">
-                                    <label class="form-label" for="name"><strong>Name</strong></label>
-                                    <input class="form-inline" type="text" th:field="*{name}" id="name"/>
-                                    <div class="valid-feedback" th:if="${#fields.hasErrors('name')}"
-                                         th:errors="*{name}"></div>
-                                </div>
-                                <br>
-                                <div class="form-group">
-                                    <label class="form-label" for="password"><strong>Password</strong></label>
-                                    <input class="form-inline" type="text" th:field="*{pass}" id="password"/>
-                                    <div class="valid-feedback" th:if="${#fields.hasErrors('pass')}"
-                                         th:errors="*{pass}"></div>
-                                    <br>
-                                </div>
-                                <div class="form-label  form-group">
-                                    <label class="form-label" for="role"><strong>Role</strong></label>
-                                    <select class="custom-select" id="role" name="role[]" multiple size="2">
-                                        <option value="ROLE_ADMIN">ADMIN</option>
-                                        <option value="ROLE_USER">USER</option>
-                                    </select>
-                                    <div class="invalid-feedback">Example invalid custom select feedback</div>
-                                </div>
-                                <div th:if="${#fields.hasErrors('roleSet')}" th:errors="*{roleSet}"></div>
-                                <br>
-                                <input class="btn btn-success center" type="submit" value="Add new user">
-                                <br>
-                                <br>
-                            </form>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -135,15 +93,9 @@
                                     <th scope="col">Roles</th>
                                 </tr>
                                 </thead>
-                                <tr>
-                                    <td th:text="${user.id}"></td>
-                                    <td th:text="${user.name}"></td>
-                                    <td>
-                                    <span th:each="role :${user.roleSet}">
-                                      <span th:text="${role.getValue()}"></span>
-                                    </span>
-                                    </td>
-                                </tr>
+                                <tbody id="user-panel">
+                                <!-- js заполняет -->
+                                </tbody>
                             </table>
                         </div>
                     </div>
